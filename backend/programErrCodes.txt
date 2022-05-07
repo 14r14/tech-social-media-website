@@ -7,3 +7,18 @@ CODE "dberr" {
     Sequelize / DB error,
     Used in controllers/auth.js (), 
 }
+
+CODE "lgnfail" {
+    Login Details are incorrect.
+    Used in controllers/auth.js (postLoginController),
+}
+
+CODE "emalex" {
+    Email already exists.
+    Used in controllers/auth.js (postRegisterController),
+}
+
+CODE "tkngenerr" {
+    Token Generation Error (Program Error),
+    Used in controllers/auth.js (postRegisterController, postLoginController),
+}
