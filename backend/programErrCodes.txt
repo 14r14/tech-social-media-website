@@ -1,0 +1,9 @@
+CODE "pwdmm" {
+    Password Mismatch(Passwords don't match),
+    Used in controllers/auth.js (postRegisterController)
+}
+
+CODE "dberr" {
+    Sequelize / DB error,
+    Used in controllers/auth.js (), 
+}

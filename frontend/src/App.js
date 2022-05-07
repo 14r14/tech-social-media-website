@@ -3,6 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import AllPosts from "./views/AllPosts";
 import CreatePost from "./views/CreatePost";
 import IndiPost from "./views/IndiPost";
+import Register from "./views/Register";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/see-all" element={<AllPosts />} />
         <Route path="/new-post" element={<CreatePost />} />
         <Route path="/post/:postId" element={<IndiPost />} />
+        <Route path="/auth/signup" element={<Register />} />
       </Routes>
       <ul>
         <li>
@@ -18,6 +20,9 @@ function App() {
         </li>
         <li>
           <Link to="/new-post">New Post</Link>
+        </li>
+        <li>
+          <Link to="/auth/signup">Sign Up</Link>
         </li>
       </ul>
     </div>

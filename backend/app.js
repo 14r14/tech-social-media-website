@@ -14,6 +14,7 @@ const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
 
 app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
