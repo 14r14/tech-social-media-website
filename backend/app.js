@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const sequelize = require("./utils/database");
+const sequelize = require("./secrets/database");
 
 const Posts = require("./models/post");
 const Users = require("./models/user");
