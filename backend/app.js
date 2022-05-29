@@ -4,13 +4,10 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const sequelize = require("./secrets/database");
-
-const Posts = require("./models/post");
-const Users = require("./models/user");
+const mongoose = require("mongoose");
 
 const indexRoutes = require("./routes/index");
-const postRoutes = require("./routes/post");
+// const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
 
 app.use(cors());
@@ -23,13 +20,12 @@ app.use(
 );
 
 app.use(indexRoutes);
-app.use("/post", postRoutes);
+// app.use("/post", postRoutes);
 app.use("/auth", authRoutes);
 
-Users.hasMany(Posts);
-
-sequelize.sync().then(
-  app.listen(8000, () => {
-    console.log("Listening on 8000!");
+mongoose.connect("mongodb://localhost:27017/express-demo").then(() => {
+  app.listen(3000, () => {
+    console.log("Connected!");
+    console.log("Listening on port: 3000");
   })
-);
+});

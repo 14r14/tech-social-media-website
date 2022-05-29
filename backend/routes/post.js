@@ -5,10 +5,10 @@ const authenticateToken = require("../program_middleware/authenticateToken");
 
 const router = express.Router();
 
-router.post("/blog/add-post", postControllers.postAddPost);
+router.post("/blog/add-post", authenticateToken, postControllers.postAddPost);
 
-router.get("/blog/get-all-posts", postControllers.getAllPosts);
+router.get("/blog/get-all-posts", authenticateToken, postControllers.getAllPosts);
 
-router.get("/blog/get-individual-post", postControllers.getIndividualPost);
+router.get("/blog/get-individual-post",authenticateToken, postControllers.getIndividualPost);
 
 module.exports = router;

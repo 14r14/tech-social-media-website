@@ -9,19 +9,17 @@ exports.postLoginController = (req, res) => {
   const password = req.body.password;
   const paramsExist = Object.keys(req.query).length > 0;
   if (!paramsExist) {
-    User.findAll({
-      where: {
-        email,
-      },
+    User.findOne({
+      email
     })
       .then((users) => {
-        checkPassword(users[0].password, password).then((result) => {
+        checkPassword(users.password, password).then((result) => {
           if (result) {
             generateToken(email)
               .then((token) => {
                 return res
                   .status(200)
-                  .json({ success: true, token, username: users[0].username });
+                  .json({ success: true, token, username: users.username });
               })
               .catch((err) => {
                 console.log(err);
@@ -61,10 +59,8 @@ exports.postRegisterController = (req, res) => {
     hashPassword(password).then((hashedPass) => {
       generateToken(email)
         .then((token) => {
-          User.findAll({
-            where: {
-              email,
-            },
+          User.find({
+            email: email
           })
             .then((users) => {
               if (users.length > 0) {
@@ -120,10 +116,4 @@ exports.postRegisterController = (req, res) => {
       errType: "pwdmm",
     });
   }
-};
-
-exports.postLogoutController = (req, res) => {
-  req.user = null;
-
-  res.send({ msg: "Logged out." });
 };
