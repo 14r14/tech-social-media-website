@@ -1,14 +1,14 @@
 const express = require("express");
 
 const postControllers = require("../controllers/post");
-const authenticateToken = require("../program_middleware/authenticateToken");
+const authenticateToken = require("../middleware/authenticateToken");
 
 const router = express.Router();
 
-router.post("/blog/add-post", authenticateToken, postControllers.postAddPost);
+router.post("/add-post", authenticateToken, postControllers.postAddPost);
 
-router.get("/blog/get-all-posts", authenticateToken, postControllers.getAllPosts);
+router.get("/get-all-posts", authenticateToken, postControllers.getAllPosts);
 
-router.get("/blog/get-individual-post",authenticateToken, postControllers.getIndividualPost);
+router.get("/get-individual-post",authenticateToken, postControllers.getIndividualPost);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const app = express();
 const mongoose = require("mongoose");
 
 const indexRoutes = require("./routes/index");
-// const postRoutes = require("./routes/post");
+const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
 
 app.use(cors());
@@ -20,7 +20,7 @@ app.use(
 );
 
 app.use(indexRoutes);
-// app.use("/post", postRoutes);
+app.use("/post", postRoutes);
 app.use("/auth", authRoutes);
 
 mongoose.connect("mongodb://localhost:27017/express-demo").then(() => {

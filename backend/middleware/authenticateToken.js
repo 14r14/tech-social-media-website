@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization']
@@ -11,9 +12,14 @@ const authenticateToken = (req, res, next) => {
 
         if (err) return res.send({success: false, msg: "Token invalid."})
 
-        req.user = user;
-
-        next();
+        User.findOne({
+            email: user.data,
+        }).then(user => {
+            req.user = user;
+            next();
+        }).catch(err => {
+            console.log(err);
+        })
     })
 }
 

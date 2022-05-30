@@ -8,13 +8,19 @@ dotenv.config();
 const token = (email) => {
   const payload = {
     data: email,
-    exp: 3600,
   };
   return new Promise((reject, resolve) => {
-    jwt.sign(payload, process.env.TOKEN_SECRET, function (err, tokenVal) {
-      if (err) resolve(err);
-      else reject(tokenVal);
-    });
+    jwt.sign(
+      payload,
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: "1hr",
+      },
+      function (err, tokenVal) {
+        if (err) resolve(err);
+        else reject(tokenVal);
+      }
+    );
   });
 };
 

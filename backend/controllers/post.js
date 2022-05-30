@@ -1,11 +1,18 @@
-const Posts = require("../models/post");
+const Post = require("../models/post");
 
 exports.postAddPost = (req, res) => {
-  Posts.create({
-    title: req.body.title,
-    description: req.body.description,
-    content: req.body.content,
+  const title = req.body.title;
+  const description = req.body.description;
+  const content = req.body.content;
+
+  const post = new Post({
+    userId: req.user._id,
+    title: title,
+    description: description,
+    content: content,
   })
+
+  post.save()
     .then((result) => {
       res.send({ success: true, msg: "Post was added successfully." });
     })
@@ -16,7 +23,7 @@ exports.postAddPost = (req, res) => {
 };
 
 exports.getAllPosts = (req, res) => {
-  Posts.findAll()
+  Post.find()
     .then((posts) => {
       res.send({
         success: true,
@@ -33,7 +40,7 @@ exports.getAllPosts = (req, res) => {
 
 exports.getIndividualPost = (req, res) => {
   const postId = req.query.postId;
-  Posts.findByPk(postId)
+  Post.findById(postId)
     .then((post) => {
       res.send({
         success: true,
