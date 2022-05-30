@@ -10,7 +10,11 @@ const indexRoutes = require("./routes/index");
 const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
 
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: ['http://localhost:3001']
+}));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(

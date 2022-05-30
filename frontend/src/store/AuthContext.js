@@ -102,8 +102,7 @@ export const AuthContextProvider = (props) => {
   const loginHandler = (token, expirationTime, username) => {
     setToken(token);
     setLoggedIn(true);
-    localStorage.setItem("token", token);
-    localStorage.setItem("expirationTime", expirationTime);
+    localStorage.setItem('expirationTime', expirationTime);
     setUsername(username);
     localStorage.setItem("username", username);
     localStorage.setItem("loggedIn", true);

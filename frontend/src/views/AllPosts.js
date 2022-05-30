@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import PostItem from "../components/PostItem";
+import Cookies from 'js-cookie';
 
 function AllPosts() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/post/blog/get-all-posts")
+    fetch("/post/get-all-posts", {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setData(data.posts);
       });
   }, []);
@@ -16,20 +22,8 @@ function AllPosts() {
     <>
       <div>All Posts</div>
       <ul>
-        {data.map((p, i) => (
-          <li key={p["id"]}>
-            <div>
-              <Link to={`/post/${p["id"]}`}>{p["title"]}</Link>
-              <br />
-              {p["description"]}
-              <br />
-              {p["createdAt"]}
-              <br />
-              {p["updatedAt"]}
-              <br />
-              <Link to={`/post/${p['id']}`}>See Post</Link>
-            </div>
-          </li>
+        {data.map((post) => (
+          <PostItem key={post._id} post={post} />
         ))}
       </ul>
     </>

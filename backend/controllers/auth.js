@@ -10,13 +10,16 @@ exports.postLoginController = (req, res) => {
   const paramsExist = Object.keys(req.query).length > 0;
   if (!paramsExist) {
     User.findOne({
-      email
+      email,
     })
       .then((users) => {
         checkPassword(users.password, password).then((result) => {
           if (result) {
             generateToken(email)
               .then((token) => {
+                res.cookie("token", token, {
+                  maxAge: 1000 * 60 * 60,
+                });
                 return res
                   .status(200)
                   .json({ success: true, token, username: users.username });
@@ -60,7 +63,7 @@ exports.postRegisterController = (req, res) => {
       generateToken(email)
         .then((token) => {
           User.find({
-            email: email
+            email: email,
           })
             .then((users) => {
               if (users.length > 0) {
@@ -70,13 +73,18 @@ exports.postRegisterController = (req, res) => {
                   errType: "emalex",
                 });
               } else {
-                User.create({
+                const user = new User({
                   username,
                   email,
                   password: hashedPass,
-                })
+                });
+                user
+                  .save()
                   .then((result) => {
-                    res.status(200).json({
+                    res.cookie("token", token, {
+                      maxAge: 1000 * 60 * 60,
+                    });
+                    return res.status(200).json({
                       success: true,
                       username,
                       token,

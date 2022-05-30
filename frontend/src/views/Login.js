@@ -22,7 +22,7 @@ function Login() {
     const email = getValues("email");
     const password = getValues("password");
 
-    fetch("http://localhost:8000/auth/login", {
+    fetch("/auth/login", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -36,6 +36,7 @@ function Login() {
       .then((data) => {
         if (data.success) {
           const expirationTime = new Date(new Date().getTime() + 3600 * 1000);
+          console.log(data);
           authCtx.login(data.token, expirationTime, data.username);
           navigate("/");
         } else {

@@ -7,8 +7,12 @@ function IndiPost() {
 
   useEffect(() => {
     fetch(
-      "http://localhost:8000/post/blog/get-individual-post?postId=" + postId
-    )
+      "/post/get-individual-post?postId=" + postId
+    , {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         setData(data.post);
@@ -18,14 +22,9 @@ function IndiPost() {
   return (
     <>
       <div>
-        <ul>
-          <li><h1>{data["title"]}</h1></li>
-          <li>
-            <h3>{data["content"]}</h3>
-          </li>
-          <li>{data["createdAt"]}</li>
-          <li>{data["updatedAt"]}</li>
-        </ul>
+        <h1>{data.title}</h1>
+        <h3>{data.description}</h3>
+        <p>{data.content}</p>
       </div>
     </>
   );
