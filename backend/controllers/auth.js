@@ -17,12 +17,14 @@ exports.postLoginController = (req, res) => {
           if (result) {
             generateToken(email)
               .then((token) => {
-                res.cookie("token", token, {
-                  maxAge: 1000 * 60 * 60,
-                });
                 return res
+                  .cookie("token", token, {
+                    maxAge: 1000 * 60 * 60,
+                    httpOnly: true,
+                    signed: true,
+                  })
                   .status(200)
-                  .json({ success: true, token, username: users.username });
+                  .json({ success: true, username: users.username });
               })
               .catch((err) => {
                 console.log(err);
@@ -81,14 +83,17 @@ exports.postRegisterController = (req, res) => {
                 user
                   .save()
                   .then((result) => {
-                    res.cookie("token", token, {
-                      maxAge: 1000 * 60 * 60,
-                    });
-                    return res.status(200).json({
-                      success: true,
-                      username,
-                      token,
-                    });
+                    return res
+                      .cookie("token", token, {
+                        maxAge: 1000 * 60 * 60,
+                        signed: true,
+                        httpOnly: true,
+                      })
+                      .status(200)
+                      .json({
+                        success: true,
+                        username,
+                      });
                   })
                   .catch((err) => {
                     res.status(505).json({
@@ -124,4 +129,8 @@ exports.postRegisterController = (req, res) => {
       errType: "pwdmm",
     });
   }
+};
+
+exports.postLogoutController = (req, res) => {
+  res.clearCookie("token").status(200).json({ success: true });
 };

@@ -6,17 +6,19 @@ function IndiPost() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(
-      "/post/get-individual-post?postId=" + postId
-    , {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
-      }
+    fetch('/helpers/get-auth-token').then(res => res.json()).then(token => {
+      fetch(
+        "/post/get-individual-post?postId=" + postId
+      , {
+        headers: {
+          'Authorization': `Bearer ${token.token}`
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data.post);
+        });
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.post);
-      });
   }, [postId]);
 
   return (

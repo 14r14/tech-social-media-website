@@ -9,6 +9,14 @@ import Register from "./views/Register";
 
 function App() {
   const authCtx = useContext(AuthContext);
+
+  const logout = () => {
+    fetch("/auth/logout", {
+      method: 'POST'
+    }).then(() => {
+      authCtx.logout();
+    });
+  };
   return (
     <div className="App">
       <Routes>
@@ -36,6 +44,7 @@ function App() {
           </>
         )}
       </ul>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 }

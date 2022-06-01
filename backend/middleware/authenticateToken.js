@@ -5,8 +5,6 @@ const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(" ")[1]
 
-    console.log(token);
-
     if (token === null) return res.send({success: false, msg: "Not authorized."})
 
     jwt.verify(token, String(process.env.TOKEN_SECRET), (err, user) => {
