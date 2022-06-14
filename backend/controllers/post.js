@@ -10,9 +10,10 @@ exports.postAddPost = (req, res) => {
     title: title,
     description: description,
     content: content,
-  })
+  });
 
-  post.save()
+  post
+    .save()
     .then((result) => {
       res.send({ success: true, msg: "Post was added successfully." });
     })
@@ -41,14 +42,16 @@ exports.getAllPosts = (req, res) => {
 exports.getIndividualPost = (req, res) => {
   const postId = req.query.postId;
   Post.findById(postId)
+    .populate("userId", "username points -_id")
+    .exec()
     .then((post) => {
-      res.send({
+      res.status(200).json({
         success: true,
         post,
       });
     })
     .catch((err) => {
-      res.send({
+      res.json({
         success: false,
         msg: "There was an error, try again in a few seconds.",
       });

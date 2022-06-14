@@ -39,6 +39,7 @@ function AllPosts() {
           <PostItem key={post._id} post={post} />
         ))}
       </ul>
+      <hr />
     </>
   );
 }

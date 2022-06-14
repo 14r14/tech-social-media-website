@@ -35,7 +35,7 @@ exports.postLoginController = (req, res) => {
                 });
               });
           } else {
-            return res.status(200).json({
+            return res.status(422).json({
               success: false,
               msg: "Invalid email or password.",
               errType: "lgnfail",
@@ -69,7 +69,7 @@ exports.postRegisterController = (req, res) => {
           })
             .then((users) => {
               if (users.length > 0) {
-                return res.status(200).json({
+                return res.status(422).json({
                   success: false,
                   msg: "Email already exists.",
                   errType: "emalex",
@@ -123,7 +123,7 @@ exports.postRegisterController = (req, res) => {
         });
     });
   } else {
-    res.status(200).json({
+    res.status(422).json({
       success: false,
       msg: "Passwords don't match.",
       errType: "pwdmm",

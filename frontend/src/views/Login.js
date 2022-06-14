@@ -25,7 +25,7 @@ function Login() {
     fetch("/auth/login", {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
+        "Content-type": "application/json"
       },
       body: JSON.stringify({
         email,
@@ -36,7 +36,6 @@ function Login() {
       .then((data) => {
         if (data.success) {
           const expirationTime = new Date(new Date().getTime() + 3600 * 1000);
-          console.log(data);
           authCtx.login(data.token, expirationTime, data.username);
           navigate("/");
         } else {

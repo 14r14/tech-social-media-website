@@ -12,13 +12,13 @@ function App() {
 
   const logout = () => {
     fetch("/auth/logout", {
-      method: 'POST'
+      method: "POST",
     }).then(() => {
       authCtx.logout();
     });
   };
   return (
-    <div className="App">
+    <div>
       <Routes>
         <Route path="/see-all" element={<AllPosts />} />
         <Route path="/new-post" element={<CreatePost />} />
@@ -30,9 +30,19 @@ function App() {
         <li>
           <Link to="/see-all">See All Posts</Link>
         </li>
-        <li>
-          <Link to="/new-post">New Post</Link>
-        </li>
+        {authCtx.isLoggedIn && (
+          <>
+            <li>
+              <Link to="/new-post">New Post</Link>
+            </li>
+            <li>
+              <button onClick={logout}>Logout</button>
+            </li>
+            <li>
+              <h4><strong>{authCtx.username}</strong></h4>
+            </li>
+          </>
+        )}
         {!authCtx.isLoggedIn && (
           <>
             <li>
@@ -44,7 +54,6 @@ function App() {
           </>
         )}
       </ul>
-      <button onClick={logout}>Logout</button>
     </div>
   );
 }
