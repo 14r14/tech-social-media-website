@@ -10,7 +10,7 @@ const authenticateToken = (req, res, next) => {
     jwt.verify(token, String(process.env.TOKEN_SECRET), (err, user) => {
         console.log(err);
 
-        if (err) return res.send({success: false, msg: "Token invalid."})
+        if (err) return res.send({success: false, msg: "Token invalid.", err: "tkninv"})
 
         User.findOne({
             email: user.data,

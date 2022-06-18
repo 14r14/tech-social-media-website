@@ -20,7 +20,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/see-all" element={<AllPosts />} />
+        <Route path="/posts" element={<AllPosts />} />
         <Route path="/new-post" element={<CreatePost />} />
         <Route path="/post/:postId" element={<IndiPost />} />
         <Route path="/auth/signup" element={<Register />} />
@@ -28,7 +28,7 @@ function App() {
       </Routes>
       <ul>
         <li>
-          <Link to="/see-all">See All Posts</Link>
+          <Link to="/posts">See All Posts</Link>
         </li>
         {authCtx.isLoggedIn && (
           <>

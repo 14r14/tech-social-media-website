@@ -24,7 +24,7 @@ function Register() {
     const username = getValues("username");
     const confirmPassword = getValues("confirmPassword");
 
-    fetch("http://localhost:8000/auth/register", {
+    fetch("http://localhost:3000/auth/register", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

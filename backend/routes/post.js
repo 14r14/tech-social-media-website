@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/add-post", authenticateToken, postControllers.postAddPost);
 
-router.get("/get-all-posts", authenticateToken, postControllers.getAllPosts);
+router.get("/get-all-posts", postControllers.getAllPosts);
 
 router.get("/get-individual-post",authenticateToken, postControllers.getIndividualPost);
 

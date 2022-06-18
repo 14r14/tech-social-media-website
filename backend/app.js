@@ -35,5 +35,5 @@ mongoose.connect("mongodb://localhost:27017/express-demo").then(() => {
   app.listen(3000, () => {
     console.log("Connected!");
     console.log("Listening on port: 3000");
-  })
+  });
 });
